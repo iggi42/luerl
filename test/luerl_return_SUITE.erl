@@ -26,7 +26,7 @@ all() ->
 
 groups() ->
   [
-    {return, [parallel], [simple_return, fun_return, variable_args, check_unicode]}
+    {return, [parallel], [simple_return, fun_return, variable_args, check_unicode, check_pcall]}
   ].
 
 simple_return(Config) ->
@@ -44,6 +44,14 @@ variable_args(Config) ->
     {"variable_args_1.lua", [99, 88, 77]},
     {"variable_args_multi.lua", [9, <<"banana">>, 8]}
   ]).
+
+check_pcall(Config) ->
+  St = run_and_check(Config, "check_pcall.lua", []),
+  check_pcall_call_fun(check_div_by_zero, St).
+
+check_pcall_call_fun(LuaFun, St) ->
+  {[true], _} = luerl:call_function([LuaFun], [], St).
+
 
 check_unicode(Config) ->
   St = run_and_check(Config, "check_unicode.lua", []),
