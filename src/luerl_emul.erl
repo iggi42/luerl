@@ -1016,8 +1016,7 @@ op('-', A1, A2, St) ->
 op('*', A1, A2, St) ->
     numeric_op('*', A1, A2, St, <<"__mul">>, fun (N1,N2) -> N1*N2 end);
 op('/', A1, A2, St) ->
-    numeric_op('/', A1, A2, St, <<"__div">>, fun (_,0) -> ;
-                                                 (N1,N2) -> N1/N2 end);
+    numeric_op('/', A1, A2, St, <<"__div">>, fun (N1,N2) -> N1/N2 end);
 %% The '//' and '%' operators are specially handled to avoid first
 %% converting integers to floats and potentially lose precision.
 op('//', A1, A2, St) ->
