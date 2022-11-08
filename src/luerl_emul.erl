@@ -1006,6 +1006,9 @@ op(Op, A, St) ->
     {error,{badarg,Op,[A]},St}.
 
 %% Numeric operators.
+
+%%%TODO: add +-inf and +-NaN
+%%% https://en.wikipedia.org/wiki/IEEE_754#Exception_handling
 op('+', A1, A2, St) ->
     numeric_op('+', A1, A2, St, <<"__add">>, fun (N1,N2) -> N1+N2 end);
 op('-', A1, A2, St) ->
@@ -1013,7 +1016,7 @@ op('-', A1, A2, St) ->
 op('*', A1, A2, St) ->
     numeric_op('*', A1, A2, St, <<"__mul">>, fun (N1,N2) -> N1*N2 end);
 op('/', A1, A2, St) ->
-    numeric_op('/', A1, A2, St, <<"__div">>, fun (_,0) -> lua_error("dividing by 0 bad", St);
+    numeric_op('/', A1, A2, St, <<"__div">>, fun (_,0) -> ;
                                                  (N1,N2) -> N1/N2 end);
 %% The '//' and '%' operators are specially handled to avoid first
 %% converting integers to floats and potentially lose precision.
