@@ -4,6 +4,5 @@ function check_div_by_zero()
   end
   local status, result = pcall(crash)
 
-  assert(status, false)
-  return true
+  return status
 end
